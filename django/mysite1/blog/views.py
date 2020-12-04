@@ -1,6 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from blog.models import Post
+
+index = ListView.as_view(model=Post)
+
 
 # 함수 기반 뷰 (Function Based View, FBV)
 # def index(request):
@@ -12,18 +16,18 @@ from django.views.generic import TemplateView
 # index = TemplateView.as_view(template_name="blog/index.html")
 
 
-class IndexView(TemplateView):
-    template_name = "blog/index.html"
+# class IndexView(TemplateView):
+#     template_name = "blog/index.html"
 
 
-index = IndexView.as_view()
+# index = IndexView.as_view()
 
 
-def make_index_view():
-    def view(request):
-        return HttpResponse("hello")
+# def make_index_view():
+#     def view(request):
+#         return HttpResponse("hello")
 
-    return view
+#     return view
 
 
 # index = make_index_view()
