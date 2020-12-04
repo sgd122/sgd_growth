@@ -3,7 +3,12 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView, ListView, DetailView
 from blog.models import Post
 
-# index = ListView.as_view(model=Post)
+# index = ListView.as_view(
+#     model=Post,
+#     queryset=(Post.objects.filter(
+#         status=Post.Status.PUBLISHED,
+#     ))
+# )
 
 
 def index(request):
@@ -16,16 +21,19 @@ def index(request):
     return response
 
 
-post_detail = DetailView.as_view(model=Post)
+# post_detail = DetailView.as_view(model=Post)
 
 
-# def post_detail(request):
-#     post_qs = Post.objects.filter(
-#         status=Post.Status.PUBLISHED,
-#     )
-#     post = get_object_or_404(post_qs, pk=pk)
-#     return render(request, "blog/post_detail.html", {"post": post})
+def post_detail(request, pk):
+    post_qs = Post.objects.filter(
+        status=Post.Status.PUBLISHED,
+    )
+    post = get_object_or_404(post_qs, pk=pk)
+    return render(request, "blog/post_detail.html", {"post": post})
 
+
+# -------------------------------------------- #
+# -------------------------------------------- #
 
 # 함수 기반 뷰 (Function Based View, FBV)
 # def index(request):
