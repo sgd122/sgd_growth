@@ -47,8 +47,14 @@ def post_detail(request, pk):
     return render(request, "blog/post_detail.html", {"post": post})
 
 
+def archives_by_year(request, year):
+    post_qs = Post.objects.filter(status=Post.Status.PUBLISHED, created_ad__year=year)
+    response = render(request, "blog/post_list.html", {"post_list": post_qs})
+    return response
+
+
 def dynamic_image(request: HttpRequest) -> HttpResponse:
-    name = request.GET.get("name", "홍길동")
+    name = request.GET.get("name", "성기동")
 
     # 윈도우의 맑은고딕 폰트 경로
     # 맥에서는 애플고딕 경로 -> '/Library/Fonts/AppleGothic.ttf'
